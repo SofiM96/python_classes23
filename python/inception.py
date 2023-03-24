@@ -96,6 +96,11 @@ def year_of_birth():
 #     print('inception.py')
 #     print(__name__)
 #     print()
-#
-#     print(year_of_birth.__doc__)
+print(__name__)
+
+if __name__ == '__main__':
+    print('George Harrison', 'was born in Liverpool, England, in', 1943)
+    print(__name__)
+    print(year_of_birth())
+# print(year_of_birth.__doc__)
 
