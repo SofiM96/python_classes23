@@ -48,10 +48,11 @@ def pass_simple_function_as_parameter():
     def f1(*args):
         return [a for a in args]
     # Case 2: 1 or more arguments (the first one is positional)
+
     def g1(fun, *args):
         return fun(*args)
 
-    print(g1(f1,'The Beatles','George Harrison'))
+    print(g1(f1, 'The Beatles', 'George Harrison'))
 
 #%%
 # Test pass_simple_function_as_parameter()
@@ -97,7 +98,18 @@ def pass_function_as_parameter(f, *args, **kwargs):
 # Test pass_function_as_parameter(f, *args, **kwargs)
 pass_function_as_parameter(use_all_categories_of_args, 'The Beatles', *the_beatles, start=1962, end=1970)
 
+#%% Demonstrate real life use of function as an input to another function:
+from scipy.integrate import solve_ivp
 
+def rhs(s, v):
+    return [-12*v[2]**2, 12*v[2]**2, 6*v[0]*v[2] - 6*v[2]*v[1] - 36*v[2]]
+
+
+res = solve_ivp(rhs, (0, 0.1), [2, 3, 4])
+
+import matplotlib.pyplot as plt
+
+plt.plot(res.t, res.y.T)
 #%%
 def return_function(full_name, first_name_flag):
     """Demonstrates using a function as the return value from another function.
