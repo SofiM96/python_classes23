@@ -7,39 +7,39 @@
 
 # Hello world: the print() built-in function and the + operator.
 
-# print('George Harrison')
-# print('George Harrison', 'was born in Liverpool, England, in', 1943)
-# print('George Harrison', 'was born in Liverpool, England, in ' + '1943')
-# print('George Harrison', 'was born in Liverpool, England, in ' + str(1943) + '.')
+print('George Harrison')
+print('George Harrison', 'was born in Liverpool, England, in', 1943)
+print('George Harrison', 'was born in Liverpool, England, in ' + '1943')
+print('George Harrison', 'was born in Liverpool, England, in ' + str(1943) + '.')
 
 #%%
 # Printing with ' ' and printing without '\n'
 
-# print('George Harrison was born in: ')
-# print(1942)
-# print('George Harrison was born in: ', end='')
-# print(1942)
+print('George Harrison was born in: ')
+print(1942)
+print('George Harrison was born in: ', end='')
+print(1942)
 
 #%%
 # Printing with classical formatting (%)
 
-# print('George Harrison was born in %s in %d.' % ('Liverpool', 1942))
+print('George Harrison was born in %s in %d.' % ('Liverpool', 1942))
 
 #%%
 # Keyboard input
 
-# year = int(input('George Harrison was born in: '))
-# print(year)
-# print('The type of "year" is:', type(year))
+year = int(input('George Harrison was born in: '))
+print(year)
+print('The type of "year" is:', type(year))
 
 #%%
 # break and continue
 
-# for i in range(5):
-#     if i == 3:
-#         # break
-#         continue
-#     print(i)
+for i in range(5):
+    if i == 3:
+        # break
+        continue
+    print(i)
 
 
 #%%
@@ -58,15 +58,15 @@ def year_of_birth():
 # Printing docstrings
 
 # print(__doc__)
-# # print(__file__)
+# print(__file__)
 # print(year_of_birth.__doc__)
 
 #%%
 # Printing a list using enumerate()
 
-# songs = ['Something', 'While My Guitar Gently Weeps', "I Need You"]
-# for i, song in enumerate(songs):
-#     print(str(i+1) + ':', song)
+songs = ['Something', 'While My Guitar Gently Weeps', "I Need You"]
+for i, song in enumerate(songs):
+    print(str(i+1) + ':', song)
 
 #%%
 # Importing from Standard Library

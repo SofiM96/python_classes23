@@ -3,8 +3,7 @@ functions as return values of other functions and
 user-defined decorators
 """
 
-
-#%%
+# %%
 # Setup / Data
 
 import functools
@@ -18,7 +17,7 @@ ringo = 'Ringo Starr'
 the_beatles = [john, paul, george, ringo]
 
 
-#%%
+# %%
 def pass_simple_function_as_parameter():
     """Demonstrates using another function as a parameter. It works because functions are objects.
     If a call to f includes positional arguments, then they are part of the *args argument of this function.
@@ -47,6 +46,7 @@ def pass_simple_function_as_parameter():
 
     def f1(*args):
         return [a for a in args]
+
     # Case 2: 1 or more arguments (the first one is positional)
 
     def g1(fun, *args):
@@ -54,12 +54,13 @@ def pass_simple_function_as_parameter():
 
     print(g1(f1, 'The Beatles', 'George Harrison'))
 
-#%%
+
+# %%
 # Test pass_simple_function_as_parameter()
 pass_simple_function_as_parameter()
 
 
-#%%
+# %%
 def pass_function_as_parameter(f, *args, **kwargs):
     """Demonstrates using another function as a parameter. It works because functions are objects.
     The argument/parameter list specified as in this function is a fairly general one -
@@ -94,15 +95,17 @@ def pass_function_as_parameter(f, *args, **kwargs):
     """
     return f(*args, **kwargs)
 
-#%%
+
+# %%
 # Test pass_function_as_parameter(f, *args, **kwargs)
 pass_function_as_parameter(use_all_categories_of_args, 'The Beatles', *the_beatles, start=1962, end=1970)
 
-#%% Demonstrate real life use of function as an input to another function:
+# %% Demonstrate real life use of function as an input to another function:
 from scipy.integrate import solve_ivp
 
+
 def rhs(s, v):
-    return [-12*v[2]**2, 12*v[2]**2, 6*v[0]*v[2] - 6*v[2]*v[1] - 36*v[2]]
+    return [-12 * v[2] ** 2, 12 * v[2] ** 2, 6 * v[0] * v[2] - 6 * v[2] * v[1] - 36 * v[2]]
 
 
 res = solve_ivp(rhs, (0, 0.1), [2, 3, 4])
@@ -110,26 +113,32 @@ res = solve_ivp(rhs, (0, 0.1), [2, 3, 4])
 import matplotlib.pyplot as plt
 
 plt.plot(res.t, res.y.T)
-#%%
+
+
+# %%
 def return_function(full_name, first_name_flag):
     """Demonstrates using a function as the return value from another function.
     In this example, depending on the first_name_flag, return_function() returns one of the following functions:
     - a function that returns a person's first name
     - a function that returns a person's family name
     """
+
     def first():
         return full_name.split()[0]
+
     def second():
         return full_name.split()[1]
+
     return first if first_name_flag else second
 
-#%%
+
+# %%
 # Test return_function(full_name, first_name_flag)
 f = return_function('George Harrison', False)
 print(f())
 
 
-#%%
+# %%
 def return_function_with_args(*args):
     """Demonstrates using a function as the return value from another function.
     The returned function has parameters/arguments.
@@ -137,20 +146,24 @@ def return_function_with_args(*args):
     - a function that returns an empty tuple (or an empty list)
     - a function that returns a tuple of args (or a list of args, or...)
     """
+
     def empty(*params):
         return ()
+
     def non_empty(*params):
         return params
+
     return empty if not args else non_empty
 
-#%%
+
+# %%
 # Test return_function_with_args(*args)
 # f = return_function_with_args()
 f = return_function_with_args(1)
 print(f('George', 'Harrison', 1943))
 
 
-#%%
+# %%
 def a_very_simple_decorator(f):
     """Illustrates the essential idea of decorators:
         - take a function (f) as a parameter of a decorator function (decorator)
@@ -209,27 +222,30 @@ def a_very_simple_decorator(f):
 
     return wrap
 
-#%%
+
+# %%
 # Test a_very_simple_decorator(f)
+
+
 def songs(*args):
     print(f'{", ".join([arg for arg in args])}')
 
 
-#%%
+# %%
 songs('Something', 'Taxman', 'My Sweet Lord')
 
-#%%
+# %%
 f = a_very_simple_decorator(songs)
 f('Only a Northern Song', 'Think for Yourself', 'I Want to Tell You')
 
-#%%
+# %%
 songs = a_very_simple_decorator(songs)
 songs('Something', 'Taxman', 'My Sweet Lord')
 print()
 songs()
 
 
-#%%
+# %%
 def band_details(f_to_decorate):
     """Demonstrates how to develop a decorator.
     Uses the decorator-writing pattern (https://stackoverflow.com/a/3394911/1899061):
@@ -244,21 +260,24 @@ def band_details(f_to_decorate):
         return wrapper_decorator
     """
     import functools
+
     @functools.wraps(f_to_decorate)
+
+
     def wrap(*args, **kwargs):
         print('-----------------------')
         v = f_to_decorate(*args, **kwargs)
         if len(args) > 1:
             print(f'{", ".join([a for a in args[1:]])}')
         if kwargs:
-            print(f'{", ".join(str(k) + ": " + str(v) for k,v in kwargs.items())}')
+            print(f'{", ".join(str(k) + ": " + str(v) for k, v in kwargs.items())}')
         print('-----------------------')
         return v
 
     return wrap
 
 
-#%%
+# %%
 @band_details
 def print_band(name, *members, **years_active):
     """Prints the name and the members of a band, assuming that both name and *members are strings.
@@ -267,13 +286,13 @@ def print_band(name, *members, **years_active):
     """
     print(name)
 
-#%%
+
+# %%
 # Test members(f_to_decorate)
 print_band('The Beatles', *the_beatles, )
 print_band('The Beatles', start=1962, end=1970)
 print_band('The Beatles', *the_beatles, start=1962, end=1970)
 
-#%%
+# %%
 # Demonstrating the purpose of @functools.wraps(f_to_decorate)
-print(print_band.__name__)      # try it with and without @functools.wraps(f_to_decorate) in the decorator
-
+print(print_band.__name__)  # try it with and without @functools.wraps(f_to_decorate) in the decorator

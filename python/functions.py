@@ -83,9 +83,9 @@ def use_all_categories_of_args(band, *members, is_active=True, **details):
     # print(type(details))
     b = band + ':' if members else band
     m = ", ".join([member for member in members])
-    a = '(active)' if is_active == True else '(not active)'
+    a = 'active' if is_active == True else 'not active'
     d = ', '.join([str(k) + ':' + str(v) for k, v in details.items()])
-    return f'{b}{m} {a}; {d}'
+    return f'{b}{m}; {a}; {d}'
 
 #%%
 # Test use_all_categories_of_args(band, *members, is_active=True, **details)
